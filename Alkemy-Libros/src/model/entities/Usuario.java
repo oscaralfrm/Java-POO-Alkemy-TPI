@@ -23,6 +23,7 @@ public class Usuario {
     // Estos datos serán cargados después.
 
     public Usuario() {
+        this.librosPrestados = new ArrayList<>();
     }
 
     public Usuario(Long numeroIdentificacion, String nombre) {

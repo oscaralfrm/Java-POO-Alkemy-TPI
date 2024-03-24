@@ -44,25 +44,11 @@ public class Prestamo {
         this.usuarioPrestamo = usuarioPrestamo;
     }
 
-
-    // Comportamiento: Método toString()
-
-    @Override
-    public String toString() {
-        return "Prestamo{" +
-                "asignacionLibro=" + asignacionLibro +
-                ", usuarioPrestamo=" + usuarioPrestamo +
-                '}';
-    }
-
-
     // Comportamiento: Métodos transaccionales
 
     // REGISTRAR PRÉSTAMO
 
     public void registrarPrestamo(Long numeroIdentificacionUsuario, Long ISBN) {
-
-        List<Libro> listaLibrosPrestamo = new ArrayList<>(); // Lista a settear
 
         Libro libroPrestar = asignacionLibro.asignarLibroISBN(ISBN);
         Usuario usuario = this.usuarioPrestamo;
@@ -71,21 +57,15 @@ public class Prestamo {
 
             libroPrestar.setDisponibilidad(false);
             System.out.println("Se ha prestado el libro: " + libroPrestar.toString());
-            listaLibrosPrestamo.add(libroPrestar);
+            usuario.getLibrosPrestados().add(libroPrestar);
 
         }
-
-        // Actualizando lista de libros prestados del usuario...
-
-        usuario.setLibrosPrestados(listaLibrosPrestamo);
 
         usuario.setPrestamo(this);
 
     }
 
     public void registrarDevolucion(Long numeroIdentificacionUsuario, Long ISBN) {
-
-        List<Libro> listaLibrosPrestamo = usuarioPrestamo.getLibrosPrestados();
 
         Libro libroDevolver = this.devolverLibro(ISBN);
         Usuario usuario = this.usuarioPrestamo;
@@ -94,13 +74,9 @@ public class Prestamo {
 
             libroDevolver.setDisponibilidad(true);
             System.out.println("Se ha devuelto el libro: " + libroDevolver.toString());
-            listaLibrosPrestamo.remove(libroDevolver);
+            usuario.getLibrosPrestados().remove(libroDevolver);
 
         }
-
-        // Actualizando lista de libros prestados del usuario...
-
-        usuario.setLibrosPrestados(listaLibrosPrestamo);
 
         if (usuario.getLibrosPrestados().size() == 0) {
             usuario.setPrestamo(null);
@@ -122,7 +98,7 @@ public class Prestamo {
 
     public Libro devolverLibro(Long ISBN) {
 
-        List<Libro> listaLibrosPrestamo = usuarioPrestamo.getLibrosPrestados();
+        List<Libro> listaLibrosPrestamo = this.usuarioPrestamo.getLibrosPrestados();
         Libro libroDevolver = null;
 
 

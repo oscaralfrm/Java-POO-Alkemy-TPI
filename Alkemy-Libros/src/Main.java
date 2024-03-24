@@ -23,8 +23,9 @@ public class Main {
         // Objeto Scanner
         Scanner scanner = new Scanner(System.in);
 
-        // Inventario de Libros
+        // Inventario de Libros y Asignación de Libros
         InventarioLibros inventarioLibros = new InventarioLibros();
+        AsignacionLibro asignacionLibro = new AsignacionLibro(inventarioLibros);
 
         // Lista de Usuarios
         List<Usuario> listaUsuarios = new ArrayList<>();
@@ -167,13 +168,13 @@ public class Main {
                     Usuario usuarioPrestamo = conseguirUsuario(numeroIdentificacionPrestamo,
                             listaUsuarios);
 
-
-                    AsignacionLibro asignacionLibro = new AsignacionLibro(inventarioLibros);
                     Prestamo prestamo = new Prestamo(asignacionLibro, usuarioPrestamo);
 
-                    System.out.println(prestamo.toString());
-
                     prestamo.registrarPrestamo(numeroIdentificacionPrestamo, ISBNPrestamo);
+
+                    System.out.println("- PRÉSTAMO: NOMBRE: "
+                            + usuarioPrestamo.getNombre() + " | LIBROS PRESTADOS: "
+                            + usuarioPrestamo.getLibrosPrestados());
 
                     System.out.println("-- PRÉSTAMO REGISTRADO --");
 
@@ -195,13 +196,13 @@ public class Main {
                     Usuario usuarioDevolucion = conseguirUsuario(numeroIdentificacionDevolucion,
                             listaUsuarios);
 
-
-                    AsignacionLibro asignacionLibroDevolucion = new AsignacionLibro(inventarioLibros);
-                    Prestamo devolucion = new Prestamo(asignacionLibroDevolucion, usuarioDevolucion);
-
-                    System.out.println(devolucion.toString());
+                    Prestamo devolucion = new Prestamo(asignacionLibro, usuarioDevolucion);
 
                     devolucion.registrarDevolucion(numeroIdentificacionDevolucion, ISBNDevolucion);
+
+                    System.out.println("- DEVOLUCIÓN: NOMBRE: " + usuarioDevolucion.getNombre()
+                            + " | LIBROS PRESTADOS ACTUALMENTE: "
+                            + usuarioDevolucion.getLibrosPrestados());
 
                     System.out.println("-- DEVOLUCIÓN REGISTRADA --");
 
