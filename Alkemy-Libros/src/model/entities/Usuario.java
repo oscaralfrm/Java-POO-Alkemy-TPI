@@ -81,5 +81,13 @@ public class Usuario {
                 '}';
     }
 
+    // Métodos transaccionales
+
+    public void mostrarLibrosPrestadosUsuario () {
+        for (Libro libro : librosPrestados) {
+            System.out.println(libro.toString());
+        }
+    }
+
 
 }

@@ -210,6 +210,18 @@ public class Main {
 
 
                 case 8:
+
+                    System.out.println("-- MOSTRAR LIBROS PRESTADOS DE UN USUARIO --");
+
+                    // Long numeroIdentificacionLibrosPrestadosUsuario
+                    System.out.print("- INGRESE EL NÚMERO DE IDENTIFICACIÓN DEL USUARIO PARA MOSTRAR SUS LIBROS PRESTADOS: ");
+                    Long numeroIdentificacionLibrosPrestadosUsuario = scanner.nextLong();
+
+                    Usuario usuarioMostrarLibrosPrestados = conseguirUsuario(numeroIdentificacionLibrosPrestadosUsuario,
+                            listaUsuarios);
+
+                    usuarioMostrarLibrosPrestados.mostrarLibrosPrestadosUsuario();
+
                     break;
 
 
@@ -217,7 +229,7 @@ public class Main {
 
                     System.out.println("-- MOSTRANDO LISTA DE LIBROS DISPONIBLES --");
 
-                    System.out.println(inventarioLibros.getListaLibros());
+                    inventarioLibros.mostrarLibrosDisponibles();
 
                     break;
 
@@ -238,7 +250,7 @@ public class Main {
         Usuario usuario = null;
 
         for (Usuario usuarioMain : listaDeUsuarios) {
-            if (usuarioMain.getNumeroIdentificacion() == idUsuario) {
+            if (Objects.equals(usuarioMain.getNumeroIdentificacion(), idUsuario)) {
                 usuario = usuarioMain;
             }
         }
