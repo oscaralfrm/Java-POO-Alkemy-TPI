@@ -18,6 +18,7 @@ public class Prestamo {
     // Comportamiento: Métodos constructores
 
     public Prestamo() {
+        this.asignacionLibro =  new AsignacionLibro();
     }
 
     public Prestamo(AsignacionLibro asignacionLibro, Usuario usuarioPrestamo) {
@@ -64,12 +65,12 @@ public class Prestamo {
         List<Libro> listaLibrosPrestamo = new ArrayList<>(); // Lista a settear
 
         Libro libroPrestar = asignacionLibro.asignarLibroISBN(ISBN);
-        Usuario usuario = devolverUsuario(numeroIdentificacionUsuario);
+        Usuario usuario = this.usuarioPrestamo;
 
         if (libroPrestar.isDisponibilidad()) {
 
-            System.out.println("Se ha prestado el libro: " + libroPrestar.toString());
             libroPrestar.setDisponibilidad(false);
+            System.out.println("Se ha prestado el libro: " + libroPrestar.toString());
             listaLibrosPrestamo.add(libroPrestar);
 
         }
@@ -87,12 +88,12 @@ public class Prestamo {
         List<Libro> listaLibrosPrestamo = usuarioPrestamo.getLibrosPrestados();
 
         Libro libroDevolver = this.devolverLibro(ISBN);
-        Usuario usuario = this.devolverUsuario(numeroIdentificacionUsuario);
+        Usuario usuario = this.usuarioPrestamo;
 
         if (!libroDevolver.isDisponibilidad()) {
 
-            System.out.println("Se ha devuelto el libro: " + libroDevolver.toString());
             libroDevolver.setDisponibilidad(true);
+            System.out.println("Se ha devuelto el libro: " + libroDevolver.toString());
             listaLibrosPrestamo.remove(libroDevolver);
 
         }
@@ -128,6 +129,7 @@ public class Prestamo {
         for (Libro libro : listaLibrosPrestamo) {
             if (Objects.equals(libro.getISBN(), ISBN)) {
                 libroDevolver = libro;
+                break;
             } else {
                 return null;
             }

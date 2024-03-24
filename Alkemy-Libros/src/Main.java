@@ -1,9 +1,9 @@
 import model.entities.Libro;
 import model.entities.Usuario;
+import model.transactionals.AsignacionLibro;
 import model.transactionals.InventarioLibros;
 import model.transactionals.Prestamo;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -167,20 +167,44 @@ public class Main {
                     Usuario usuarioPrestamo = conseguirUsuario(numeroIdentificacionPrestamo,
                             listaUsuarios);
 
-                    System.out.println(usuarioPrestamo.toString());
 
-                    Prestamo prestamo = new Prestamo();
+                    AsignacionLibro asignacionLibro = new AsignacionLibro(inventarioLibros);
+                    Prestamo prestamo = new Prestamo(asignacionLibro, usuarioPrestamo);
 
-                    prestamo.setUsuarioPrestamo(usuarioPrestamo);
+                    System.out.println(prestamo.toString());
 
                     prestamo.registrarPrestamo(numeroIdentificacionPrestamo, ISBNPrestamo);
 
-                    System.out.println("- PRÉSTAMO REGISTRADO: " + prestamo.toString());
+                    System.out.println("-- PRÉSTAMO REGISTRADO --");
 
                     break;
 
 
                 case 7:
+
+                    System.out.println("-- REGISTRANDO UNA DEVOLUCIÓN --");
+
+                    // Long numeroIdentificacionPrestamo
+                    System.out.print("- INGRESE EL NÚMERO DE IDENTIFICACIÓN DEL USUARIO A REALIZAR LA DEVOLUCIÓN: ");
+                    Long numeroIdentificacionDevolucion = scanner.nextLong();
+
+                    // Long ISBN
+                    System.out.print("- INGRESE EL ISBN DEL LIBRO A DEVOLVER: ");
+                    Long ISBNDevolucion = scanner.nextLong();
+
+                    Usuario usuarioDevolucion = conseguirUsuario(numeroIdentificacionDevolucion,
+                            listaUsuarios);
+
+
+                    AsignacionLibro asignacionLibroDevolucion = new AsignacionLibro(inventarioLibros);
+                    Prestamo devolucion = new Prestamo(asignacionLibroDevolucion, usuarioDevolucion);
+
+                    System.out.println(devolucion.toString());
+
+                    devolucion.registrarDevolucion(numeroIdentificacionDevolucion, ISBNDevolucion);
+
+                    System.out.println("-- DEVOLUCIÓN REGISTRADA --");
+
                     break;
 
 

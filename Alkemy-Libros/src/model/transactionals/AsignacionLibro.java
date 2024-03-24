@@ -55,7 +55,7 @@ public class AsignacionLibro {
 
     public Libro asignarLibroISBN(Long ISBN) {
 
-        return this.inventarioLibros.libroPorISBN(ISBN);
+        return inventarioLibros.libroPorISBN(ISBN);
 
     }
 
